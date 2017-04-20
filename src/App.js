@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
-import { Editor, EditorState } from 'draft-js'
+import './App.css'
+
+import GEditor from './components/GEditor'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      editorState: EditorState.createEmpty()
-    }
-  }
-
   render() {
     return (
-      <Editor editorState={this.state.editorState} onChange={this.onChange}/>
+      <div className="app">
+        <GEditor />
+      </div>
     )
-  }
-
-  onChange = (editorState) => {
-    this.setState({
-      editorState
-    })
   }
 }
 
