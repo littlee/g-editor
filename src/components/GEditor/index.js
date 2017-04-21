@@ -18,6 +18,7 @@ class GEditor extends React.Component {
       editorState: EditorState.createEmpty(),
       dragEnter: false
     }
+    this.dragging = 0
   }
 
   render() {
@@ -28,7 +29,13 @@ class GEditor extends React.Component {
           <InlineStyle editorState={this.state.editorState} onToggle={this._toggleInlineStyle}/>
           <Media onConfirm={this._insertImage}/>
         </div>
-        <div className="g-editor-inner" onDragEnter={this._dragEnter} onDragLeave={this._dragLeave} onDrop={this._drop}>
+        <div className="g-editor-inner"
+          onDragEnter={this._dragEnter}
+          onDragLeave={this._dragLeave}
+          onDrop={this._drop}
+          onDragOver={this._dragOver}
+          onPaste={this._paste}
+          >
           {
             this.state.dragEnter ? 
             <div className="g-editor-drag-overlay">
@@ -66,29 +73,60 @@ class GEditor extends React.Component {
   }
 
   _dragEnter = (e) => {
-    if (e.target.className === 'g-editor-inner') {
-      this.setState({
-        dragEnter: true
-      })
-    }
+    e.preventDefault()
+    this.dragging++
+    this.setState({
+      dragEnter: true
+    })
   }
 
   _dragLeave = (e) => {
-    if (e.target.className === 'g-editor-drag-overlay') {
+    e.preventDefault()
+    this.dragging--
+    if (this.dragging === 0) {
       this.setState({
         dragEnter: false
       })
     }
   }
 
+  _dragOver = (e) => {
+    e.preventDefault()
+  }
+
   _drop = (e) => {
-    console.log(e.dataTransfer)
+    e.preventDefault()
+    this.setState({
+      dragEnter: false
+    })
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      var file = e.dataTransfer.files[0]
+      var fileReader = new FileReader()
+      fileReader.onload = (e) => {
+        this._insertImage(e.target.result)
+      }
+      fileReader.readAsDataURL(file)
+    }
+  }
+
+  _paste = (e) => {
+    console.log(e.clipboardData.getData('Files'))
+    // [].forEach.call(e.clipboardData.items, (item) => {
+    //   if (item.kind === 'file') {
+    //     var blob = item.getAsFile()
+    //     var fileReader = new FileReader()
+    //     fileReader.onload = (e) => {
+    //       this._insertImage(e.target.result)
+    //     }
+    //     fileReader.readAsDataURL(blob)
+    //   }
+    // })
   }
 
   _insertImage = (urlValue) => {
     var editorState = this.state.editorState
     var contentState = editorState.getCurrentContent()
-    var contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: urlValue })
+    var contentStateWithEntity = contentState.createEntity('IMAGE', 'MUTABLE', { src: urlValue })
     var entityKey = contentStateWithEntity.getLastCreatedEntityKey()
     var newEditorState = EditorState.set(editorState, {
       currentContent: contentStateWithEntity

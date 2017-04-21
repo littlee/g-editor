@@ -91,3 +91,9 @@
 .public-DraftEditor-content {
   min-height: 200px;
 }
+
+.public-DraftEditor-content figure {
+  margin: 0;
+  display: inline-block;
+  width: auto;
+}
