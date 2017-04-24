@@ -110,17 +110,16 @@ class GEditor extends React.Component {
   }
 
   _paste = (e) => {
-    console.log(e.clipboardData.getData('Files'))
-    // [].forEach.call(e.clipboardData.items, (item) => {
-    //   if (item.kind === 'file') {
-    //     var blob = item.getAsFile()
-    //     var fileReader = new FileReader()
-    //     fileReader.onload = (e) => {
-    //       this._insertImage(e.target.result)
-    //     }
-    //     fileReader.readAsDataURL(blob)
-    //   }
-    // })
+    [].forEach.call(e.clipboardData.items, (item) => {
+      if (item.kind === 'file') {
+        var blob = item.getAsFile()
+        var fileReader = new FileReader()
+        fileReader.onload = (e) => {
+          this._insertImage(e.target.result)
+        }
+        fileReader.readAsDataURL(blob)
+      }
+    })
   }
 
   _insertImage = (urlValue) => {
