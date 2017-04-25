@@ -34,7 +34,6 @@ class Media extends React.Component {
         borderRadius: '5px',
         outline: 'none',
         padding: '0'
-
       }
     }
 
@@ -45,16 +44,17 @@ class Media extends React.Component {
           isOpen={this.state.openModal}
           onRequestClose={this._closeModal}
           style={style}
-          contentLabel='media-ctrl-modal'
+          contentLabel='g-ctrl-modal'
           >
-          <div className='media-ctrl-modal-header'>插入图片</div>
-          <div className='media-ctrl-modal-body'>
+          <div className='g-ctrl-modal-header'>插入图片</div>
+          <div className='g-ctrl-modal-body'>
             <div>输入图片链接</div>
             <input type="text" ref="input" style={{ width:'100%' }}/>
+            <small style={{ color: '#aaa' }}>可以通过将图片拖放到编辑区上传，也可以从剪切板粘贴图片 (Chrome Only)</small>
           </div>
-          <div className='media-ctrl-modal-footer'>
-            <button type="button" className="media-ctrl-modal-btn ok" onClick={this._insertImage}>好</button>
-            <button type="button" className="media-ctrl-modal-btn cancel" onClick={this._closeModal}>取消</button>
+          <div className='g-ctrl-modal-footer'>
+            <button type="button" className="g-ctrl-modal-btn ok" onClick={this._insertImage}>好</button>
+            <button type="button" className="g-ctrl-modal-btn cancel" onClick={this._closeModal}>取消</button>
           </div>
         </Modal>
       </div>

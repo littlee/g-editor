@@ -48,30 +48,30 @@
   background-color: #555;
 }
 
-.media-ctrl-modal-header {
+.g-ctrl-modal-header {
   padding: 6px;
   text-align: center;
   border-bottom: 1px solid #ddd;
   font-size: 14px;
 }
-.media-ctrl-modal-body {
+.g-ctrl-modal-body {
   text-align: center;
   padding: 10px;
   font-size: 14px;
 }
-.media-ctrl-modal-footer {
+.g-ctrl-modal-footer {
   border-top: 1px solid #ddd;
 }
-.media-ctrl-modal-footer:before {
+.g-ctrl-modal-footer:before {
   content: "";
   display: table;
 }
-.media-ctrl-modal-footer:after {
+.g-ctrl-modal-footer:after {
   content: "";
   display: table;
   clear: both;
 }
-.media-ctrl-modal-btn {
+.g-ctrl-modal-btn {
   display: block;
   float: left;
   width: 50%;
@@ -83,7 +83,7 @@
   outline: 0;
   cursor: pointer;
 }
-.media-ctrl-modal-btn.ok {
+.g-ctrl-modal-btn.ok {
   font-weight: bold;
   border-right: 1px solid #ddd;
 }
